@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import Article, Category
-from django.utils.translation import gettext_lazy as _
-
+from django.utils.translation import ngettext
+from django.contrib import messages
 
 # @admin.action(description='Mark selected stories as published')
 # def make_published(modeladmin, request, queryset):
@@ -17,8 +17,8 @@ from django.utils.translation import gettext_lazy as _
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ['title','thumbnail_image','publish','status','category_to_str']
-    list_filter = ['status','publish']
+    list_display = ['title','user','thumbnail_image','publish','status','category_to_str']
+    list_filter = ['status','publish','user']
     search_fields = ['title','description']
     prepopulated_fields = {"slug": ("title",)}
     ordering =['-publish','-status',]
@@ -33,8 +33,7 @@ class ArticleAdmin(admin.ModelAdmin):
             '%d stories were successfully marked as published.',
             updated,
         ) % updated, messages.SUCCESS)
-    make_published.short_description =_( 'published marked articles')
-
+    make_published.short_description =( 'published marked articles')
     
     def make_drafted(self, request, queryset):
         updated = queryset.update(status='D')
@@ -43,15 +42,20 @@ class ArticleAdmin(admin.ModelAdmin):
             '%d stories were successfully marked as drafted.',
             updated,
         ) % updated, messages.SUCCESS)
+    make_drafted.short_description = 'drafted marked articles'
+
+
+
+
+
 
     actions =[make_published, make_drafted]
-    make_drafted.short_description = _('drafted marked articles')
 
 
 
 
     def category_to_str(self, obj):
-        return ", ".join([category.title for category in obj.category_published()])
+        return ", ".join([category.title for category in obj.category.category_status()])
     category_to_str.short_description='category'
 
 
@@ -72,7 +76,7 @@ class CategoryAdmin(admin.ModelAdmin):
             '%d stories were successfully marked as published.',
             updated,
         ) % updated, messages.SUCCESS)
-    make_published.short_description =_( 'published marked catgory')
+    make_published.short_description ='published marked catgory'
 
     
     def make_drafted(self, request, queryset):
@@ -82,8 +86,7 @@ class CategoryAdmin(admin.ModelAdmin):
             '%d stories were successfully marked as drafted.',
             updated,
         ) % updated, messages.SUCCESS)
-    make_drafted.short_description =_('drafted marked catgory')
-
+    make_drafted.short_description ='drafted marked catgory'
     actions =[make_published, make_drafted]
 
 

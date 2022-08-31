@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from .models import Article, Category
-
+from .models import User
 
 class ArticleHomeView(generic.ListView):
     model = Article
@@ -10,7 +10,7 @@ class ArticleHomeView(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)        
-        context["article"] =Article.objects.article_draft()
+        context["article"] =Article.objects.article_published()
         return context
     
     
@@ -44,3 +44,21 @@ class CategoryListView(generic.ListView):
     #     context = super().get_context_data(**kwargs)
     #     context['categories'] = category
     #     return context 
+
+
+class AuthorListView(generic.ListView):
+    # model = Article
+    template_name = "blog/user_list.html"
+
+    def get_queryset(self):
+        global author
+        username = self.kwargs.get('username')
+        author = get_object_or_404(User,username=username)
+        return author.articles.article_published
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["author"] = author
+        return context
+    
+        

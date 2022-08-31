@@ -3,13 +3,14 @@ from django.utils import timezone
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.utils.html import format_html
+from django.contrib.auth import get_user_model
 
-
+from django.utils.translation import ngettext
 
 
 
 class ArticleFilterManager(models.Manager):
-    def article_draft(self):
+    def article_published(self):
         return self.filter(status='P')
 
 
@@ -38,12 +39,13 @@ class Category(models.Model):
 
 
 
-
+User = get_user_model()
 class Article(models.Model):
     STATUS_CHOICES = (
         ('D','Draft'),
         ('P','Published')
     )
+    user = models.ForeignKey(User, verbose_name=_("user") ,on_delete=models.CASCADE, related_name = 'articles')
     title = models.CharField(max_length=50, verbose_name= _('title'))
     slug = models.SlugField()
     description = models.TextField( verbose_name= _('description'))

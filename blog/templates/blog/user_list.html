@@ -1,0 +1,9 @@
+{% extends '_base.html' %}
+
+{% block content %}
+{% comment %} <h1>User Detail</h1> {% endcomment %}
+{% include 'blog/header.html' %}
+
+<h3 class='alert alert-primary text-center'>author: {{author.get_full_name}}</h3>
+{% endblock content %}
+

@@ -34,10 +34,10 @@ Crypto Graph
                 </a>
                 <p class="post-meta">
                     Posted by
-                    <a href="###">###</a>
+                    <a href="{% url 'blog:author-list' articles.user.username %}">{{articles.user.get_full_name}}</a>
                     {{articles.publish}}
                 </p>
-                {% for categories in articles.category_published.all %}
+                {% for categories in articles.category.category_status %}
                     <a href="{% url 'blog:category'  categories.slug %}">#{{categories.title}}</a>
                 {% endfor %}
                 
