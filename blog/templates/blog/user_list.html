@@ -1,9 +1,65 @@
 {% extends '_base.html' %}
 
+
+{% block page_title %} 
+Crypto Graph
+{% endblock page_title %} 
+
+
+
 {% block content %}
 {% comment %} <h1>User Detail</h1> {% endcomment %}
 {% include 'blog/header.html' %}
 
 <h3 class='alert alert-primary text-center'>author: {{author.get_full_name}}</h3>
+
+
+{% load static %}
+
+{% comment %} 
+<header class="masthead" style="background-image: url('{% static 'blog/assets/img/home-bg.jpg' %} ')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1>{{object.title}}</h1>
+                    <span class="subheading">{{article.publish}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header> {% endcomment %}
+
+
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <!-- Post preview-->
+            {% for articles in article %}
+            <div class="post-preview">
+                <a href="{{articles.get_absolute_url}}">
+                    <h2 class="post-title">{{articles.title}}</h2>
+                    <h3 class="post-subtitle">{{articles.description|truncatechars:30}}</h3>
+                </a>
+                <p class="post-meta">
+                    Posted by
+                    <a href="{% url 'blog:author-list' articles.user.username %}">{{articles.user.get_full_name}}</a>
+                    {{articles.publish}}
+                </p>
+                {% for categories in articles.category.category_status %}
+                    <a href="{% url 'blog:category'  categories.slug %}">#{{categories.title}}</a>
+                {% endfor %}
+                
+                <!-- Divider-->
+                <hr class="my-4" />
+                {% endfor %} 
+
+            <!-- Pager-->
+            <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
+        </div>
+    </div>
+</div>
 {% endblock content %}
+
+
 

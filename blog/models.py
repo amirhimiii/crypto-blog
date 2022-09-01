@@ -75,3 +75,6 @@ class Article(models.Model):
     thumbnail_image.short_description =_('article image')
 
 
+    def category_to_str(self):
+        return ", ".join([category.title for category in self.category.category_status()])
+    category_to_str.short_description='category'

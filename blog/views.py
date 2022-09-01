@@ -49,7 +49,7 @@ class CategoryListView(generic.ListView):
 class AuthorListView(generic.ListView):
     # model = Article
     template_name = "blog/user_list.html"
-
+    context_object_name = 'article'
     def get_queryset(self):
         global author
         username = self.kwargs.get('username')

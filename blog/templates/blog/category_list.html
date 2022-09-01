@@ -23,8 +23,8 @@ Crypto Graph
                 </a>
                 <p class="post-meta">
                     Posted by
-                    <a href="{% url 'blog:author-list' article.author %}">{{article.author.get_full_name}}</a>
-                    {{article.publish}}
+                    <a href="{% url 'blog:author-list' article.user.username %}">{{article.user.get_full_name}}</a>
+                    <br>{{article.publish}}
                 </p>
                 
                 {% for cat in article.category.category_status %}

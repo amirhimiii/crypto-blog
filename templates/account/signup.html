@@ -1,0 +1,144 @@
+{% extends "login_base.html" %}
+
+{% load i18n %}
+
+
+{% block account_content %}
+
+<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+  {% csrf_token %}
+  <div class="limiter">
+    <div class="container-login100">
+      <div class="wrap-login100">
+          <span class="login100-form-title p-b-26">
+            signup
+          </span>
+          <span class="login100-form-title p-b-48">
+            <i class="zmdi zmdi-font"></i>
+          </span>
+      <div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
+      <input class="input100" type="text" name="email">
+      <span class="focus-input100" data-placeholder="Email"></span>
+    </div>
+  
+    <div class="wrap-input100 validate-input" data-validate="username">
+      <span class="btn-show-pass">
+        <i class="zmdi zmdi-eye"></i>
+      </span>
+      <input class="input100" type="username" name="username">
+      <span class="focus-input100" data-placeholder="username"></span>
+    </div>
+
+      
+    <div class="wrap-input100 validate-input" data-validate="Enter password">
+      <span class="btn-show-pass">
+        <i class="zmdi zmdi-eye"></i>
+      </span>
+      <input class="input100" type="password" name="password1">
+      <span class="focus-input100" data-placeholder="Password1"></span>
+    </div>
+  
+      
+    <div class="wrap-input100 validate-input" data-validate="Enter password">
+      <span class="btn-show-pass">
+        <i class="zmdi zmdi-eye"></i>
+      </span>
+      <input class="input100" type="password" name="password2">
+      <span class="focus-input100" data-placeholder="Password2"></span>
+    </div>
+    <div class="container-login100-form-btn">
+      <div class="wrap-login100-form-btn">
+        <div class="login100-form-bgbtn"></div>
+        <button class="login100-form-btn">
+          sign up
+        </button>
+      </div>
+    </div> 
+  
+      <div class="text-center p-t-115">
+        <span class="txt1">
+          Do you have an account?
+        </span>
+          <a class="txt2" href="{{ login_url }}">
+            LogIn
+          </a>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+  </form>
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+  <button type="submit">{% trans "Sign Up" %} &raquo;</button>
+</form>
+
+{% endblock %}
+
+
+
+
+{% comment %} 
+
+{% block account_content %}
+<div class="limiter">
+  <div class="container-login100">
+    <div class="wrap-login100">
+        <span class="login100-form-title p-b-26">
+          Welcome
+        </span>
+        <span class="login100-form-title p-b-48">
+          <i class="zmdi zmdi-font"></i>
+        </span>
+
+<form class="login" method="POST" action="{% url 'account_login' %}">
+  {% csrf_token %}
+  <div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
+    <input class="input100" type="text" name="login">
+    <span class="focus-input100" data-placeholder="Email"></span>
+  </div>
+
+  <div class="wrap-input100 validate-input" data-validate="Enter password">
+    <span class="btn-show-pass">
+      <i class="zmdi zmdi-eye"></i>
+    </span>
+    <input class="input100" type="password" name="password">
+    <span class="focus-input100" data-placeholder="Password"></span>
+  </div>
+
+  
+
+  <div class="container-login100-form-btn">
+    <div class="wrap-login100-form-btn">
+      <div class="login100-form-bgbtn"></div>
+      <button class="login100-form-btn">
+        Login
+      </button>
+    </div>
+  </div> 
+
+    <div class="text-center p-t-115">
+      <span class="txt1">
+        Don’t have an account?
+      </span>
+        <a class="txt2" href="{{ signup_url }}">
+          Sign Up
+        </a>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+</form>
+
+ {% endcomment %}
+
+{% comment %} 
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+  <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+  <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>
+</form> {% endcomment %}
+
