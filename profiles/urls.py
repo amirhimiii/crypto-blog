@@ -1,7 +1,8 @@
 from django.urls import path
 from .views import (
 ProfileListView,
-ArticleCreateView
+ArticleCreateView,
+ArticleUpdateView
 
 )
 
@@ -10,7 +11,7 @@ app_name = 'profile'
 urlpatterns = [
     path('', ProfileListView.as_view(), name = 'article-list'),
     path('create/', ArticleCreateView.as_view(), name = 'article-list'),
-
+    path('update/<slug:slug>/',ArticleUpdateView.as_view(), name = 'article-update' )
 
     
     # path('product/delete/<slug:slug>/',ProductDeleteView.as_view(),name='product-delete'),

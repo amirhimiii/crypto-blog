@@ -40,11 +40,25 @@ Profile
                 {% for article in object_list %}
                 <tr>
                 <td>{{article.user.get_full_name}}</td>
-                <td>{{article.title}}</td>
-                <td>{{article.description|truncatewords:10}}</td>
+                
+                  <td>
+                    {% if article.status == 'D' or user.is_superuser %}
+                    <a href="{% url 'profile:article-update' article.slug %}">{{article.title}}</a>
+                    {% else %}
+                    
+                    {{article.title}}
+                    
+                    {% endif %}
+
+                  </td>
+                <td>{{article.description|truncatewords:10|striptags}}</td>
+                
                 <td>#{{article.category_to_str}}</td>
+                
                 <td><img src="{{article.thumbnail.url}}" width='100'></td>
+                
                 <td>{{article.publish}}</td>
+                
                 <td>
                 {% if article.status == 'P' %}
                 <span class="badge badge-success">منتشر شدن</span>

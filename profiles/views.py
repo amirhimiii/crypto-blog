@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views import generic
 from blog.models import Article
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .mixins import FieldMixin, FormValidMixin, AuthorAccessMixin
 
 
 class ProfileListView(LoginRequiredMixin, generic.ListView):
@@ -15,12 +16,14 @@ class ProfileListView(LoginRequiredMixin, generic.ListView):
 
 
     
-class ArticleCreateView(LoginRequiredMixin,generic.CreateView):
+class ArticleCreateView(LoginRequiredMixin,FormValidMixin ,FieldMixin, generic.CreateView):
     model =Article
     template_name = "profile/article_create.html"
-    fields = ('user','slug','title','description','thumbnail','publish','status','category')
 
 
+    
+class ArticleUpdateView(AuthorAccessMixin, FormValidMixin ,FieldMixin, generic.UpdateView):
+    model =Article
+    template_name = "profile/article_create.html"
 
 
-#CRUD
