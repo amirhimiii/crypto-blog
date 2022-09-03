@@ -51,8 +51,8 @@ class Article(models.Model):
     description = models.TextField( verbose_name= _('description'))
     thumbnail = models.ImageField(upload_to='thumbnail/', blank = True, verbose_name= _('thumbnail'))
     publish = models.DateTimeField(default= timezone.now, verbose_name= _('published date:'))
-    created = models.DateField(auto_now_add=False,  verbose_name= _('created:'))
-    updated = models.DateField(auto_now=False, verbose_name= _('updated article:'))
+    created = models.DateField(auto_now_add=timezone.now,  verbose_name= _('created:'))
+    updated = models.DateField(auto_now=timezone.now, verbose_name= _('updated article:'))
     status = models.CharField(choices=STATUS_CHOICES ,max_length=1, verbose_name= _('status'))
     category = models.ManyToManyField(Category, verbose_name=_("category") ,related_name='articles_category')
 

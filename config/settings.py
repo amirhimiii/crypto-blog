@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'crispy_forms',
 
     #APPs
     'accounts.apps.AccountsConfig',
@@ -152,14 +153,17 @@ ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3
 
-LOGIN_URL ='blog:home'
+LOGIN_URL ='account_login'
 LOGIN_REDIRECT_URL = 'blog:home'
 LOGOUT_REDIRECT_URL = 'blog:home'
 
-
+# Authentication
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
+# Media
 MEDIA_URL = '/media/'
 MEDIA_ROOT = str(BASE_DIR.joinpath('image'))
 
 SITE_ID =1
+
+CRISPY_TEMPLATE_PACK = 'Bootstrap4'

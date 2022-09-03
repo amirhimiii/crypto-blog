@@ -15,9 +15,12 @@ class ProfileListView(LoginRequiredMixin, generic.ListView):
 
 
     
-# class ArticleCreateView(generic.CreateView):
-#     model = Article
-#     template_name = "profile/article_create.html"
+class ArticleCreateView(LoginRequiredMixin,generic.CreateView):
+    model =Article
+    template_name = "profile/article_create.html"
+    fields = ('user','slug','title','description','thumbnail','publish','status','category')
+
+
 
 
 #CRUD
