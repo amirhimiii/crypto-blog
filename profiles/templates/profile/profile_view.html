@@ -6,6 +6,7 @@ Profile
 
 {% block main %}
 <div class="row">
+  {% if object_list %}
     <div class="col-12">
       <div class="card">
         <div class="card-header">
@@ -38,41 +39,38 @@ Profile
             </thead>
             <tbody>
                 {% for article in object_list %}
-                <tr>
-                <td>{{article.user.get_full_name}}</td>
-                
-                  <td>
-                    {% if article.status == 'D' or user.is_superuser %}
-                    <a href="{% url 'profile:article-update' article.slug %}">{{article.title}}</a>
-                    {% else %}
-                    
-                    {{article.title}}
-                    
-                    {% endif %}
+                  <tr>
+                  <td>{{article.user.get_full_name}}</td>
+                  
+                    <td>
+                      {% if article.status == 'D' or user.is_superuser %}
+                        <a href="{% url 'profile:article-update' article.slug %}">{{article.title}}</a>
+                      {% else %}
+                        {{article.title}}
+                      {% endif %}
+                    </td>
 
+                    <td>{{article.description|truncatewords:5|striptags}}</td>
+                    
+                    <td>#{{article.category_to_str}}</td>
+                    
+                    <td><img src="{{article.thumbnail.url}}" width='100'></td>
+                    
+                    <td>{{article.publish}}</td>
+                    
+                    <td>
+                  {% if article.status == 'P' %}
+                  <span class="badge badge-success">منتشر شدن</span>
+                    <p><a target="_blank" class="badge badge-primary" 
+                  href="{% url 'blog:article-detail' article.slug %}">مقاله منتشر شد</a></p>
+                  {% else %}
+                    <span class="badge badge-danger">پیش نویس </span>
+                  {% endif %}
+
+                 {% if user.is_superuser %}
+                    <p><a class='badge text-danger' href="{% url 'profile:article-delete'  article.slug %}">حذف</a></p>
+                  {% endif %} 
                   </td>
-                <td>{{article.description|truncatewords:10|striptags}}</td>
-                
-                <td>#{{article.category_to_str}}</td>
-                
-                <td><img src="{{article.thumbnail.url}}" width='100'></td>
-                
-                <td>{{article.publish}}</td>
-                
-                <td>
-                {% if article.status == 'P' %}
-                <span class="badge badge-success">منتشر شدن</span>
-                <a target="_blank" class="badge badge-primary" 
-                href="{% url 'blog:article-detail' article.slug %}">مقاله منتشر شد</a>
-                {% else %}
-                <span class="badge badge-danger">پیش نویس </span>
-
-                {% endif %}
-              </td>
-                {% comment %} <td>{{article.status}}</td> {% endcomment %}
-
-                {% comment %} <td><span class="tag tag-success">Approved</span></td> {% endcomment %}
-                {% comment %} <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td> {% endcomment %}
             </tr>
             {% endfor %}
             </tbody>
@@ -81,8 +79,11 @@ Profile
         <!-- /.card-body -->
       </div>
       <!-- /.card -->
+    {% else %}
+    <h3>no article for show</h3>
     </div>
   </div>
+  {% endif %}
   
 
 

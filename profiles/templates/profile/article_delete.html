@@ -1,0 +1,44 @@
+{% extends 'profile/index.html' %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+
+{% block main %}
+{% csrf_token %}
+<div class='col-md-9 text-center mx-auto'>
+    <div class="card card-danger">
+        <div
+        class = "card-header"> 
+        <h3 class="card-title mb-0 fload-left">{% trans "delete product" %} </h3>
+    </div>
+        <div class="cart-body   py-4">
+        {% if user.is_superuser %}
+            <form action="" method="POST" >
+                {% csrf_token %}
+           <p>{% trans "are you sure to delete " %}  --{{article.title}}--- from ---{{article.user.username}}---</p>    
+            <img class= width=85 height=75  src="{{article.thumbnail.url}}" alt=""> 
+             <button  class = 'btn btn-success'>{% trans "delete " %}</button>
+            </div>
+        </div>
+    </div>
+</form>
+{% else %}
+<div class='col-md-9 text-center mx-auto'>
+    <div class="card card-danger">
+        <div
+        class = "card-header"> 
+        <h3 class="card-title mb-0 fload-left">{% trans "delete product" %}</h3>
+    </div>
+        <div class="cart-body   py-4">
+            <p>{% trans "just site admin can delete post" %} </p>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endif %}
+
+
+
+{% endblock main %}

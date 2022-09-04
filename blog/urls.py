@@ -9,6 +9,4 @@ urlpatterns = [
     path('category/<slug:slug>/',CategoryListView.as_view(),name='category'),
     path('user_list/<slug:username>/',AuthorListView.as_view(),name='author-list'),
 
-    
-
 ]
