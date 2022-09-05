@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+from environs import Env
+
+env = Env()
+env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-x!!1@sx$q^df%0ja1str@l41-fb)j4r$j*rgj-$tq8uvzi&ls^'
-
+SECRET_KEY = env('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -48,7 +51,7 @@ INSTALLED_APPS = [
     #APPs
     'accounts.apps.AccountsConfig',
     'blog.apps.BlogConfig',
-    'profiles.apps.ProfilesConfig'
+    'profiles.apps.ProfilesConfig',
 ]
 
 MIDDLEWARE = [
@@ -170,9 +173,9 @@ CRISPY_TEMPLATE_PACK = 'Bootstrap4'
 
 
 # email config
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = env('EMAIL_HOST')
-# EMAIL_USE_TLS = True
-# EMAIL_PORT = env('EMAIL_PORT')
-# EMAIL_HOST_USER = env('EMAIL_HOST_USER') #email addres
-# EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD') #password email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_USE_TLS = True
+EMAIL_PORT = env('EMAIL_PORT')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER') #email addres
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD') #password email
