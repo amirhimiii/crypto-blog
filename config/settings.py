@@ -167,3 +167,12 @@ MEDIA_ROOT = str(BASE_DIR.joinpath('image'))
 SITE_ID =1
 
 CRISPY_TEMPLATE_PACK = 'Bootstrap4'
+
+
+# email config
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = env('EMAIL_HOST')
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = env('EMAIL_PORT')
+# EMAIL_HOST_USER = env('EMAIL_HOST_USER') #email addres
+# EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD') #password email

@@ -34,16 +34,17 @@ Profile
                 <th>category</th>
                 <th>image</th>
                 <th>publish</th>
+                <th>vip article?</th>
                 <th>status</th>
               </tr>
             </thead>
             <tbody>
                 {% for article in object_list %}
                   <tr>
-                  <td>{{article.user.get_full_name}}</td>
+                  <td>{{article.user.username}}</td>
                   
                     <td>
-                      {% if article.status == 'D' or user.is_superuser %}
+                      {% if article.status in 'BP'|make_list or user.is_superuser %}
                         <a href="{% url 'profile:article-update' article.slug %}">{{article.title}}</a>
                       {% else %}
                         {{article.title}}
@@ -56,19 +57,37 @@ Profile
                     
                     <td><img src="{{article.thumbnail.url}}" width='100'></td>
                     
-                    <td>{{article.publish}}</td>
+                    <td>{{article.publish.date}}</td>
+                    
+                    <td>{% if article.is_special %}
+                      <i class="fa fa-check-circle" style='color: green'></i>
+                    {% else %}
+                    <i class="fa fa-check-circle" style='color: red'></i>
+
+                    {% endif %}
+                    </td>
                     
                     <td>
                   {% if article.status == 'P' %}
-                  <span class="badge badge-success">منتشر شدن</span>
-                    <p><a target="_blank" class="badge badge-primary" 
-                  href="{% url 'blog:article-detail' article.slug %}">مقاله منتشر شد</a></p>
+                      {% comment %} <span class="badge badge-success">منتشر شدن</span> {% endcomment %}
+                        <p><a target="_blank" class="badge badge-success" 
+                        href="{% url 'blog:article-detail' article.slug %}">مقاله منتشر شد</a></p>
+                  {% elif article.status == 'I' %}
+                      <span class="badge badge-primary">درحال بررسی </span>
+                          {% if user.is_superuser %}
+                            <a href="{% url 'blog:article-preview' article.slug %}"><span class="badge badge-secondary"> پیش نمایش درسایت</span></a>
+                          {% endif %}
                   {% else %}
-                    <span class="badge badge-danger">پیش نویس </span>
+                      {% if article.status == 'D' %}
+                      <span class="badge badge-danger">پیش نویس </span>
+                      {% else %}
+                        <span class="badge badge-warning"> برگشت داده شده </span>
+                  {% endif %}
+                      <a href="{% url 'blog:article-preview' article.slug %}"><span class="badge badge-secondary"> پیش نمایش درسایت</span></a>
                   {% endif %}
 
-                 {% if user.is_superuser %}
-                    <p><a class='badge text-danger' href="{% url 'profile:article-delete'  article.slug %}">حذف</a></p>
+                  {% if user.is_superuser %}
+                      <p><a class='badge text-danger' href="{% url 'profile:article-delete'  article.slug %}">حذف</a></p>
                   {% endif %} 
                   </td>
             </tr>

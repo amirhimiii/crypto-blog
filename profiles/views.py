@@ -3,10 +3,11 @@ from django.urls import reverse_lazy
 from django.views import generic
 from blog.models import Article
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .mixins import FieldMixin, FormValidMixin, AuthorAccessMixin, SuperUserAccessMixin
+from .mixins import FieldMixin, FormValidMixin, AuthorAccessMixin, SuperUserAccessMixin, AuthorsAccessMixin
+from blog.models import User
+from profiles.forms import ProfileUserForm
 
-
-class ProfileListView(LoginRequiredMixin, generic.ListView):
+class ProfileListView(AuthorsAccessMixin, generic.ListView):
     queryset = Article.objects.all()
     template_name = "profile/profile_view.html"
 
@@ -18,7 +19,7 @@ class ProfileListView(LoginRequiredMixin, generic.ListView):
 
 
     
-class ArticleCreateView(LoginRequiredMixin,FormValidMixin ,FieldMixin, generic.CreateView):
+class ArticleCreateView(AuthorsAccessMixin,FormValidMixin ,FieldMixin, generic.CreateView):
     model =Article
     template_name = "profile/article_create.html"
 
@@ -35,3 +36,19 @@ class ArticleDeleteView(SuperUserAccessMixin, generic.DeleteView):
     template_name = "profile/article_delete.html"
     success_url = reverse_lazy('blog:home')
 
+
+class Profile(LoginRequiredMixin ,generic.UpdateView):
+    # model = User
+    template_name = 'profile/profile.html'
+    form_class = ProfileUserForm
+    success_url = reverse_lazy('profile:profile')
+
+    def get_object(self):
+        return User.objects.get(pk = self.request.user.pk)
+
+    def get_form_kwargs(self):
+        kwargs = super(Profile, self).get_form_kwargs()
+        kwargs.update({
+            'user':self.request.user
+        })
+        return kwargs

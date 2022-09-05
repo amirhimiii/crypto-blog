@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from .models import Article, Category
 from .models import User
+from profiles.mixins import AuthorAccessMixin
+
 
 class ArticleHomeView(generic.ListView):
     model = Article
@@ -20,8 +22,16 @@ class ArticleDetailView(generic.DetailView):
 
     def get_object(self):
         slug = self.kwargs.get('slug')
-        return get_object_or_404(Article , slug=slug)
+        return get_object_or_404(Article, slug=slug)
 
+
+
+class ArticlePreview(AuthorAccessMixin, generic.DetailView):
+    template_name =  "blog/article_preview.html"
+
+    def get_object(self):
+        slug = self.kwargs.get('slug')
+        return get_object_or_404(Article , slug=slug)
 
 
 class CategoryListView(generic.ListView):

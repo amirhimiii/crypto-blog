@@ -38,7 +38,8 @@ Crypto Graph
             {% for articles in article %}
             <div class="post-preview">
                 <a href="{{articles.get_absolute_url}}">
-                    <h2 class="post-title">{{articles.title}}</h2>
+                    <h2 class="post-title">{{articles.title}}</h2>                 
+                
                     <h3 class="post-subtitle">{{articles.description|truncatechars:30}}</h3>
                 </a>
                 <p class="post-meta">

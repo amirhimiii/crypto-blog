@@ -17,7 +17,7 @@ from django.contrib import messages
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ['title','user','thumbnail_image','publish','status','category_to_str']
+    list_display = ['title','user','thumbnail_image','publish','is_special','status','category_to_str']
     list_filter = ['status','publish','user']
     search_fields = ['title','description']
     prepopulated_fields = {"slug": ("title",)}

@@ -40,14 +40,17 @@
                         <div class="form-group col-md-6 ">
                             {{ form.thumbnail|as_crispy_field }}
                         </div>
+                        <div class="form-group col-md-6 ">
+                            {{ form.is_special|as_crispy_field }}
+                        </div>
                     </div>
                 </div>
                 <button class = 'btn btn-success'> {% trans "confirmation" %}</button>
-                    {% if state %}
-                    {% if user.is_superuser%}
-                    <button><a href="{% url 'product-delete' product.slug %}" class = 'btn btn-danger'>حذف</a></button>
+                    {% comment %} {% if state %} {% endcomment %}
+                    {% if user.is_superuser and request.resolver_match.kwargs.slug  %}
+                    <a href="{% url 'profile:article-delete' request.resolver_match.kwargs.slug %}" class = 'btn btn-danger'>حذف</a>
                     {% endif %}                
-                    {% endif %}
+                    {% comment %} {% endif %} {% endcomment %}
             </div>
         </div>
     </div>

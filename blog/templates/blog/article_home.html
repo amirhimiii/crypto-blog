@@ -30,7 +30,13 @@ Crypto Graph
             {% for articles in article %}
             <div class="post-preview">
                 <a href="{{articles.get_absolute_url}}">
-                    <h2 class="post-title">{{articles.title}}</h2>
+                    <h2 class="post-title">{{articles.title}}
+                        {% if articles.is_special %}
+                        <span class="badge bg-danger" style='font-size: 14px'>ویژه</span> 
+                        {% endif %}                    
+                    </h2>
+                    
+                    
                     <h3 class="post-subtitle">{{articles.description|truncatechars:30|striptags}}</h3>
                 </a>
                 <p class="post-meta">

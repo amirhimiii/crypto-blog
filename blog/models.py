@@ -43,9 +43,12 @@ User = get_user_model()
 class Article(models.Model):
     STATUS_CHOICES = (
         ('D','Draft'),
-        ('P','Published')
+        ('P','Published'),
+        ('I','Investigation'),
+        ('B','Back')
     )
     user = models.ForeignKey(User, verbose_name=_("user") ,on_delete=models.CASCADE, related_name = 'articles')
+    is_special = models.BooleanField(default=False,verbose_name= _('special article?'))    
     title = models.CharField(max_length=50, verbose_name= _('title'))
     slug = models.SlugField()
     description = models.TextField( verbose_name= _('description'))

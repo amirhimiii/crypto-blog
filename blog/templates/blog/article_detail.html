@@ -11,13 +11,19 @@
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
-               {{article.description|linebreaks|safe}}
-                <p>
-                    Placeholder text by
-                    <a href="http://spaceipsum.com/">Space Ipsum</a>
-                    &middot; Images by
-                    <a href="https://www.flickr.com/photos/nasacommons/">NASA on The Commons</a>
-                </p>
+               {% if object.is_special %}
+                    {% if user.is_authenticated and user.is_special_user or user == object.user or user.is_superuser %}
+                    
+                        {{article.description|linebreaks|safe}}
+                        
+                    {% else %}
+                        
+                        <p class='alert alert-warning'>این مقاله ویژه است و برای دیدن باید <a href="{% url 'blog:home' %}">اشتراک ویژه</a>  تهیه کنید </p>
+                    {% endif %}
+               {% else %}
+                    {{article.description|linebreaks|safe}}
+
+               {% endif %}
             </div>
         </div>
     </div>
