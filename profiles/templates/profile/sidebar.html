@@ -1,5 +1,5 @@
 {% load static %}
-{% comment %} {% load gravatar %} {% endcomment %}
+{% load gravatar %}
 {% load i18n %}
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -14,12 +14,11 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src= "" class="img-circle elevation-2" alt="">
-          {% comment %} src= "{% gravatar_url user.email 150 %}" {% endcomment %}
+          <img src= "{% gravatar_url user.email 150 %}" class="img-circle elevation-2" alt="{{user.email}}">
         </div>
         <div class="info">
-          <a href="" class="d-block">{{user.get_full_name}}</a>
-          {% comment %} href="https://en.gravatar.com/" {% endcomment %}
+          <a href="https://en.gravatar.com/" class="d-block">{{user.get_full_name}}</a>
+          
         </div>
       </div>
 

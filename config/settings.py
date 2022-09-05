@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'crispy_forms',
+    'django_gravatar',
 
     #APPs
     'accounts.apps.AccountsConfig',
