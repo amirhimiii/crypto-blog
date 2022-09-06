@@ -44,6 +44,7 @@ Crypto Graph
                     <a href="{% url 'blog:author-list' articles.user.username %}">{{articles.user.get_full_name}}</a>
                     {{articles.publish}}
                 </p>
+                <div> <small> views:{{articles.hits.count}}</small></div>
                 {% for categories in articles.category.category_status %}
                     <a href="{% url 'blog:category'  categories.slug %}">#{{categories.title}}</a>
                 {% endfor %}

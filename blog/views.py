@@ -25,7 +25,12 @@ class ArticleDetailView(generic.DetailView):
 
     def get_object(self):
         slug = self.kwargs.get('slug')
-        return get_object_or_404(Article, slug=slug)
+        article =  get_object_or_404(Article, slug=slug)
+    
+        ip_address =self.request.user.ip_address
+        if ip_address not in article.hits.all():
+            article.hits.add(ip_address)
+        return article
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

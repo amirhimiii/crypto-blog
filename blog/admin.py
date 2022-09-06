@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Article, Category, Comment
+from .models import Article, Category, Comment, IPAddress
 from django.utils.translation import ngettext
 from django.contrib import messages
 
@@ -51,7 +51,7 @@ class ArticleAdmin(admin.ModelAdmin):
 
     actions =[make_published, make_drafted]
 
-
+admin.site.register(IPAddress)
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):

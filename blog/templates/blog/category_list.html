@@ -26,14 +26,14 @@ Crypto Graph
                     <a href="{% url 'blog:author-list' article.user.username %}">{{article.user.get_full_name}}</a>
                     <br>{{article.publish}}
                 </p>
-                
+
                 {% for cat in article.category.category_status %}
                     <a href="{% url 'blog:category' cat.slug %}">#{{cat.title}}</a>
                 {% endfor %} 
                     <!-- Divider-->
                     <hr class="my-4" />
                 {% endfor %}
-                
+
             <!-- Pager-->
             <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
         </div>

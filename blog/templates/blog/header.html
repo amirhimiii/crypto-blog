@@ -9,13 +9,13 @@
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <div class="site-heading">
                     <h3>{{object.title}}
-
-                    {% if object.is_special %}
-                    <span class="badge bg-danger" style='font-size: 14px'>ویژه</span> 
-                    {% endif %}
+                        {% if object.is_special %}
+                        <span class="badge bg-danger" style='font-size: 14px'>ویژه</span> 
+                        {% endif %}
                     </h3>                     
                     <span class="subheading">{{article.publish}}</span>
                     {% ratings object %}  
+                    <div> views:{{object.hits.count}}</div>
 
                 </div>
             </div>
