@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Article, Category
+from .models import Article, Category, Comment
 from django.utils.translation import ngettext
 from django.contrib import messages
 
@@ -17,7 +17,7 @@ from django.contrib import messages
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ['title','user','thumbnail_image','publish','is_special','status','category_to_str']
+    list_display = ['title','user','publish','is_special','status','category_to_str']
     list_filter = ['status','publish','user']
     search_fields = ['title','description']
     prepopulated_fields = {"slug": ("title",)}
@@ -53,8 +53,9 @@ class ArticleAdmin(admin.ModelAdmin):
 
 
 
-
-
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['author','comment','title','datetime_created']
 
 
 @admin.register(Category)

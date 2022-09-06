@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'crispy_forms',
     'django_gravatar',
+    'star_ratings',
 
     #APPs
     'accounts.apps.AccountsConfig',
@@ -180,3 +181,6 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = env('EMAIL_PORT')
 EMAIL_HOST_USER = env('EMAIL_HOST_USER') #email addres
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD') #password email
+
+
+STAR_RATINGS_STAR_HEIGHT =16

@@ -1,4 +1,5 @@
 {% load static %}
+{% load ratings %}
 
 
 <header class="masthead" style="background-image: url('{{article.thumbnail.url}}')">
@@ -7,12 +8,15 @@
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <div class="site-heading">
-                    <h1>{{object.title}}
+                    <h3>{{object.title}}
+
                     {% if object.is_special %}
                     <span class="badge bg-danger" style='font-size: 14px'>ویژه</span> 
                     {% endif %}
-                    </h1> 
+                    </h3>                     
                     <span class="subheading">{{article.publish}}</span>
+                    {% ratings object %}  
+
                 </div>
             </div>
         </div>

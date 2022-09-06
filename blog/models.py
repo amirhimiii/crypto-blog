@@ -39,6 +39,12 @@ class Category(models.Model):
 
 
 
+
+class IPAddress(models.Model):
+    ip_address = models.GenericIPAddressField()
+
+
+
 User = get_user_model()
 class Article(models.Model):
     STATUS_CHOICES = (
@@ -48,11 +54,12 @@ class Article(models.Model):
         ('B','Back')
     )
     user = models.ForeignKey(User, verbose_name=_("user") ,on_delete=models.CASCADE, related_name = 'articles')
+    hits = models.ManyToManyField(IPAddress, blank=True, related_name='hits', verbose_name=('views'))
     is_special = models.BooleanField(default=False,verbose_name= _('special article?'))    
     title = models.CharField(max_length=50, verbose_name= _('title'))
     slug = models.SlugField()
     description = models.TextField( verbose_name= _('description'))
-    thumbnail = models.ImageField(upload_to='thumbnail/', blank = True, verbose_name= _('thumbnail'))
+    thumbnail = models.ImageField(upload_to='thumbnail/', blank = False, verbose_name= _('thumbnail'))
     publish = models.DateTimeField(default= timezone.now, verbose_name= _('published date:'))
     created = models.DateField(auto_now_add=timezone.now,  verbose_name= _('created:'))
     updated = models.DateField(auto_now=timezone.now, verbose_name= _('updated article:'))
@@ -81,3 +88,16 @@ class Article(models.Model):
     def category_to_str(self):
         return ", ".join([category.title for category in self.category.category_status()])
     category_to_str.short_description='category'
+
+
+class Comment(models.Model):
+    title = models.CharField(max_length=50)
+    text  = models.TextField()
+    author = models.ForeignKey(User, verbose_name=_("author"), on_delete=models.CASCADE)
+    comment = models.ForeignKey(Article, verbose_name=_("comment"), on_delete=models.CASCADE, related_name='comments')
+    datetime_created = models.DateTimeField(auto_now=timezone.now)
+
+    def get_absolute_url(self):
+        return reverse("blog:home")
+
+

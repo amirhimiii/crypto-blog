@@ -1,0 +1,8 @@
+{% extends "star_ratings/widget_base.html" %}
+{% block rating_detail %}
+    {% if not user.is_authenticated %}
+    <small>یرای رای دادن <a href="{% url 'account_login' %} ">وارد</a>شوید</small>
+
+    {% endif %}
+
+{% endblock %}

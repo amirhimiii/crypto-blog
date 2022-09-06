@@ -1,8 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
-from .models import Article, Category
+from .models import Article, Category, Comment
 from .models import User
 from profiles.mixins import AuthorAccessMixin
+from .forms import CommentForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 
 class ArticleHomeView(generic.ListView):
@@ -24,6 +27,35 @@ class ArticleDetailView(generic.DetailView):
         slug = self.kwargs.get('slug')
         return get_object_or_404(Article, slug=slug)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = CommentForm 
+        return context
+
+
+class CommentCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Comment
+    form_class = CommentForm
+    context_object_name = 'comments'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["comments"] = Comment.objects.all()
+        return context
+    
+
+
+    def form_valid(self,form):
+        obj = form.save(commit=False)
+        obj.author = self.request.user
+    
+        slug = self.kwargs.get('slug')#1 gereftan id
+        article =get_object_or_404(Article, slug=slug)#2 badesh dadn id be get_obj
+        obj.comment = article 
+
+        return super().form_valid(form)
+
+    
 
 
 class ArticlePreview(AuthorAccessMixin, generic.DetailView):
