@@ -5,6 +5,9 @@ from .models import User
 from profiles.mixins import AuthorAccessMixin
 from .forms import CommentForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Count , Q
+from datetime import datetime, timedelta
+
 
 
 
@@ -108,4 +111,22 @@ class AuthorListView(generic.ListView):
         context["author"] = author
         return context
     
+
+
+
+class SearchView(generic.ListView):
+    # model = Article
+    template_name = "blog/search_list.html"
+    context_object_name = 'article'
+    
+    def get_queryset(self):
+        search = self.request.GET.get('q')
+        return Article.objects.filter(Q (description__icontains=search)) |Q(title__icontains=search)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["search"] = self.request.GET.get('q')
+        return context
+    
+        
         

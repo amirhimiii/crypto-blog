@@ -1,6 +1,8 @@
 {% extends '_base.html' %}
+{% load humanize %}
 
 {% load static %}
+{% load base_tags %}
 
 {% block page_title %} 
 Crypto Graph
@@ -10,6 +12,9 @@ Crypto Graph
 {% block content %}
 {% include 'blog/header.html' %}
 
+{% popular_articles %}
+--------------------
+{% hot_articles %}
 
 <div class="container px-4 px-lg-5">
     <div class="row gx-4 gx-lg-5 justify-content-center">
@@ -24,7 +29,7 @@ Crypto Graph
                 <p class="post-meta">
                     Posted by
                     <a href="{% url 'blog:author-list' article.user.username %}">{{article.user.get_full_name}}</a>
-                    <br>{{article.publish}}
+                    <br>posted at:  {{article.publish|naturaltime}}
                 </p>
 
                 {% for cat in article.category.category_status %}

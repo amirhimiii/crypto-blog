@@ -14,7 +14,7 @@
                         {% endif %}
                     </h3>                     
                     <span class="subheading">{{article.publish}}</span>
-                    {% ratings object %}  
+                    {% comment %} {% ratings object %}   {% endcomment %}
                     <div> views:{{object.hits.count}}</div>
 
                 </div>

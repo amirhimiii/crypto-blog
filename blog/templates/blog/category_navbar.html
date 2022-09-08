@@ -21,6 +21,16 @@
                 
                 {% endfor %}
             </ul>
+            
+        </div>
+        <div class="navbar navbar-light">
+        <form class="form-inline mt-3 "  action="{% url 'blog:search' %}">
+            <input type="text" name='q' class="form-control" placeholder='search' >
+    
+            <button class='btn btn-success' style='padding:8px; border-radius: 5px: 
+            margin-right:5px;'>جستجو</button>
+    
+        </form>
         </div>
     </div>
 </nav>

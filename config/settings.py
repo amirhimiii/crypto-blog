@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'django_gravatar',
     'star_ratings',
+    'django.contrib.humanize',
+
 
     #APPs
     'accounts.apps.AccountsConfig',
@@ -64,7 +66,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'blog.middleware.IPAddressMiddleware'
+    'blog.middleware.IPAddressMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'

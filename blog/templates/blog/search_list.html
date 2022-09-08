@@ -1,40 +1,14 @@
 {% extends '_base.html' %}
-
-{% load static %}
 {% load base_tags %}
-{% load humanize %}
-{% block page_title %} 
-Crypto Graph
-{% endblock page_title %} 
-
+{% load ratings %}
 
 {% block content %}
-<header class="masthead" style="background-image: url('{% static 'blog/assets/img/home-bg.jpg' %} ')">
-    
-    <div class="container position-relative px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5 justify-content-center">
-            <div class="col-md-10 col-lg-8 col-xl-7">
-                <div class="site-heading">
-                    <h1>{{object.title}}</h1>
-                    <span class="subheading">{{article.publish}}</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
+{% include 'blog/header.html' %}
 
-</div>
-
-
-
+<h3 class="alert alert-primary text-center">{{search}}
+</h3>
 <div class="container px-4 px-lg-5">
     <div class="row gx-4 gx-lg-5 justify-content-center">
-        
-       
-        
-            {% popular_articles %}
-            --------------------
-            {% hot_articles %}
         
         <div class="col-md-10 col-lg-8 col-xl-7">
             <!-- Post preview-->
@@ -48,12 +22,12 @@ Crypto Graph
                     </h2>
                     
                     
-                    <h3 class="post-subtitle">{{articles.description|striptags|truncatechars:30}}</h3>
+                    <h3 class="post-subtitle">{{articles.description|truncatechars:30|striptags}}</h3>
                 </a>
                 <p class="post-meta">
                     Posted by
-                    <a href="{% url 'blog:author-list' articles.user.username %}">{{articles.user.get_full_name}}</a>
-                    <br>posted at: {{articles.publish|naturaltime}}
+                    {% comment %} <a href="{% url 'blog:author-list' articles.user.username %}">{{articles.user.get_full_name}}</a> {% endcomment %}
+                    {{articles.publish}}
                 </p>
                 <div> <small> views:{{articles.hits.count}}</small></div>
                 {% for categories in articles.category.category_status %}
@@ -62,6 +36,8 @@ Crypto Graph
                 
                 <!-- Divider-->
                 <hr class="my-4" />
+                {% empty %}
+                محتوایی نیست
                 {% endfor %} 
 
             <!-- Pager-->

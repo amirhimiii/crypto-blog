@@ -54,7 +54,7 @@ class Article(models.Model):
         ('B','Back')
     )
     user = models.ForeignKey(User, verbose_name=_("user") ,on_delete=models.CASCADE, related_name = 'articles')
-    hits = models.ManyToManyField(IPAddress, blank=True, related_name='hits', verbose_name=('views'))
+    hits = models.ManyToManyField(IPAddress, through="ArticleHit" ,blank=True, related_name='hits', verbose_name=('views'))
     is_special = models.BooleanField(default=False,verbose_name= _('special article?'))    
     title = models.CharField(max_length=50, verbose_name= _('title'))
     slug = models.SlugField()
@@ -101,3 +101,9 @@ class Comment(models.Model):
         return reverse("blog:home")
 
 
+
+
+class ArticleHit(models.Model):
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    ip_address = models.ForeignKey(IPAddress, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
