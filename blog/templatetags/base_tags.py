@@ -23,7 +23,7 @@ def popular_articles():
     last_month = datetime.today() - timedelta(days=30)
     return {
         'popular_articles': Article.objects.article_published().annotate(
-            count=Count('hits', filter=Q(articlehit__created__gt=last_month))).order_by('-count','-publish'),
+            count=Count('hits', filter=Q(articlehit__created__gt=last_month))).order_by('-count','-publish')[:3],
         
         'title': 'مقالات پربازدید ماه'
         }
@@ -33,7 +33,6 @@ def popular_articles():
 
 @register.inclusion_tag("blog/popular_articles.html")
 def hot_articles():
-    last_month = datetime.today() - timedelta(days=30)
     # content_type_id = ContentType.objects.get(app_label='blog', model='Article')
 
     return {

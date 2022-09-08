@@ -55,7 +55,7 @@ admin.site.register(IPAddress)
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ['author','comment','title','datetime_created']
+    list_display = ['author','article','title','datetime_created']
 
 
 @admin.register(Category)
@@ -89,3 +89,8 @@ class CategoryAdmin(admin.ModelAdmin):
     actions =[make_published, make_drafted]
 
 
+
+
+
+
+###TABULAR inline

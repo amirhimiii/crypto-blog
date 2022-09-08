@@ -51,7 +51,7 @@ Profile
                       {% endif %}
                     </td>
 
-                    <td>{{article.description|truncatewords:5|striptags}}</td>
+                    <td>{{article.description|striptags|truncatewords:5}}</td>
                     
                     <td>#{{article.category_to_str}}</td>
                     

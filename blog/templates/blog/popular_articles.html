@@ -1,9 +1,67 @@
+{% load static %}
+<div class="mb-3">
+    <div class="section-title mb-0">
+        <h4 class="m-0 text-uppercase font-weight-bold">{{title}}</h4>
+    </div>
+    {% for article in popular_articles %}
 
-    <h2 class='h4'>{{title}}</h2>
-    <hr>
-    {% for a in popular_articles %}
-    <div>
-        <a href="{% url 'blog:article-detail' a.slug %}">{{a.title}}</a>
+    <div class="bg-white border border-top-0 p-3">
+        <div class="d-flex align-items-center bg-white mb-3" style="height: 110px;">
+            <img class="img-fluid" src={{article.thumbnail.url}} width="50" height="50" alt="">
+            <div class="w-100 h-100 px-3 d-flex flex-column justify-content-center border border-left-0">
+                <div class="mb-2">
+                    <a class="badge badge-primary text-uppercase font-weight-semi-bold p-1 mr-2" href="">Crypto</a>
+                    <a class="text-body" href=""><small>{{article.publish}}</small></a>
+                </div>
+                <a class="h6 m-0 text-secondary text-uppercase font-weight-bold" href="">{{article.title}}</a>
+            </div>
+        </div>
     </div>
     {% endfor %}
+</div>
+    {% comment %} <h2 class='h4'></h2>
+    <hr>
+    <div>
+        <a href="{% url 'blog:article-detail' a.slug %}">{{a.title}}</a>
+    </div> {% endcomment %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+{% comment %} 
+<div class="mb-3">
+    <div class="section-title mb-0">
+        <h4 class="m-0 text-uppercase font-weight-bold">{{title}}</h4>
+    </div>
+    {% for article in  popular_articles%}        
+    <div class="bg-white border border-top-0 p-3">
+         <div class="d-flex align-items-center bg-white mb-3" style="height: 10px, width: 20;"> 
+    <div class="main-news-controls" data-v-1265a5a0="">
+        <ul class="main-news-controls__list tab-1" data-v-1265a5a0="">
+           <li class="main-news-controls__item" data-v-1265a5a0="">
+              <div class="main-news-controls__wrap" data-v-1265a5a0="">
+                 <!----><a href="{% url 'blog:article-detail' article.slug %}" class="main-news-controls__link" data-v-1265a5a0="" color='#000000'>{{article.title}}  </a>
+                 <div class="main-news-controls__stats" data-v-1265a5a0="">
+                    {{article.description|striptags|truncatechars:100}}
+                   <br> views: {{article.hits.count}}
+                    <!----><!---->
+                 </div>
+              </div>
+           </li>
+        </ul>
+     </div>
+    </div>
+</div>
+{% endfor %}   
+</div> {% endcomment %}
 

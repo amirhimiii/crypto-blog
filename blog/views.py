@@ -15,10 +15,12 @@ class ArticleHomeView(generic.ListView):
     model = Article
     template_name = "blog/article_home.html"
 
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)        
-        context["article"] =Article.objects.article_published()
+        context["article"] =Article.objects.article_published().annotate(comment_count=Count('comments')).order_by('-publish')[:4]
+        context["art"] =Article.objects.article_published().annotate(comment_count=Count('comments'))[:4]
+        context["slider"] = Article.objects.article_published()[:3]
+        
         return context
     
     
@@ -121,7 +123,7 @@ class SearchView(generic.ListView):
     
     def get_queryset(self):
         search = self.request.GET.get('q')
-        return Article.objects.filter(Q (description__icontains=search)) |Q(title__icontains=search)
+        return Article.objects.filter(Q (description__icontains=search) | Q(title__icontains=search))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

@@ -94,7 +94,7 @@ class Comment(models.Model):
     title = models.CharField(max_length=50)
     text  = models.TextField()
     author = models.ForeignKey(User, verbose_name=_("author"), on_delete=models.CASCADE)
-    comment = models.ForeignKey(Article, verbose_name=_("comment"), on_delete=models.CASCADE, related_name='comments')
+    article = models.ForeignKey(Article, verbose_name=_("comment"), on_delete=models.CASCADE, related_name='comments')
     datetime_created = models.DateTimeField(auto_now=timezone.now)
 
     def get_absolute_url(self):
