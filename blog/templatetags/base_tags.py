@@ -33,8 +33,6 @@ def popular_articles():
 
 @register.inclusion_tag("blog/popular_articles.html")
 def hot_articles():
-    # content_type_id = ContentType.objects.get(app_label='blog', model='Article')
-
     return {
         'popular_articles': Article.objects.article_published().annotate(
             count=Count('comments', filter=Q(comments__posted__gt=last_month) and Q(comments__datetime_created=last_month))).order_by('-count','-publish'),

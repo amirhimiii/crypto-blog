@@ -3,17 +3,6 @@ from .models import Article, Category, Comment, IPAddress
 from django.utils.translation import ngettext
 from django.contrib import messages
 
-# @admin.action(description='Mark selected stories as published')
-# def make_published(modeladmin, request, queryset):
-#     queryset.update(status='P')
-
-
-# @admin.action(description='Mark selected stories as drafted')
-# def make_drafted(modeladmin, request, queryset):
-#     queryset.update(status='D')
-
-
-# admin.site.register(Article)
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
@@ -89,8 +78,3 @@ class CategoryAdmin(admin.ModelAdmin):
     actions =[make_published, make_drafted]
 
 
-
-
-
-
-###TABULAR inline

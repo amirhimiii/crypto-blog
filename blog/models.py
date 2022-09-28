@@ -24,7 +24,7 @@ class Category(models.Model):
     parent = models.ForeignKey("self", on_delete=models.SET_NULL, default= None, blank=True, null=True, related_name='children',verbose_name= _('main category'))
     title = models.CharField(max_length=50, verbose_name= _('category title'))
     status = models.BooleanField(default=True,verbose_name= _('category status'))
-    slug = models.SlugField() # baray neshon dadn urlsh balay safhe mitone monaseb bashe
+    slug = models.SlugField()
 
     objects = CategoryManager()
 

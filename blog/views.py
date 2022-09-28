@@ -59,8 +59,8 @@ class CommentCreateView(LoginRequiredMixin, generic.CreateView):
         obj = form.save(commit=False)
         obj.author = self.request.user
     
-        slug = self.kwargs.get('slug')#1 gereftan id
-        article =get_object_or_404(Article, slug=slug)#2 badesh dadn id be get_obj
+        slug = self.kwargs.get('slug')
+        article =get_object_or_404(Article, slug=slug)
         obj.comment = article 
 
         return super().form_valid(form)
@@ -86,20 +86,9 @@ class CategoryListView(generic.ListView):
         context['categories'] = get_object_or_404(Category.objects.category_status(),slug=slug)
         return context 
 
-    # def get_queryset(self):
-    #     global category
-    #     slug = self.kwargs.get('slug')
-    #     category =  get_object_or_404(Category.objects.category_status(),slug=slug)
-    #     return category.articles.category_status()
-
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['categories'] = category
-    #     return context 
 
 
 class AuthorListView(generic.ListView):
-    # model = Article
     template_name = "blog/user_list.html"
     context_object_name = 'article'
     def get_queryset(self):
@@ -117,7 +106,6 @@ class AuthorListView(generic.ListView):
 
 
 class SearchView(generic.ListView):
-    # model = Article
     template_name = "blog/search_list.html"
     context_object_name = 'article'
     
