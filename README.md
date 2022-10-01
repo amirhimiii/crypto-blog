@@ -22,7 +22,7 @@
 - staff and admin access
 - special article and special user
 - preview post for users
-
+- humanize
 
 ##  admin panel and weblog view
 ![weblog view](https://user-images.githubusercontent.com/86768797/193403973-ca17ca76-6a1d-44da-9102-54dd97b4a3dd.jpeg)
