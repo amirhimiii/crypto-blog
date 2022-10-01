@@ -38,7 +38,6 @@ class ArticleDeleteView(SuperUserAccessMixin, generic.DeleteView):
 
 
 class Profile(LoginRequiredMixin ,generic.UpdateView):
-    # model = User
     template_name = 'profile/profile.html'
     form_class = ProfileUserForm
     success_url = reverse_lazy('profile:profile')

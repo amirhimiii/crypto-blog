@@ -16,13 +16,4 @@ urlpatterns = [
     path('delete/<slug:slug>/',ArticleDeleteView.as_view(),name='article-delete'),
     path('profile/',Profile.as_view(),name='profile'),
 
-
-
-
-    
-    # path('product/delete/<slug:slug>/',ProductDeleteView.as_view(),name='product-delete'),
-    # path('product/create/',ProductCreateView.as_view(),name='product-create'),
-    # path('product/update/<slug:slug>/',ProductUpdateView.as_view(),name='product-update'),
-    # path('profile/',Profile.as_view(),name='profile'),
-
 ]

@@ -1,12 +1,12 @@
 from django.urls import path
 from .views import (
-ArticleHomeView,
-ArticleDetailView,
-CategoryListView,
-AuthorListView,
-ArticlePreview,
-CommentCreateView,
-SearchView
+    ArticleHomeView,
+    ArticleDetailView,
+    CategoryListView,
+    AuthorListView,
+    ArticlePreview,
+    CommentCreateView,
+    SearchView
 )
 
 app_name = 'blog'
@@ -20,7 +20,4 @@ urlpatterns = [
     path('comment/<slug:slug>/',CommentCreateView.as_view(),name='comment-create'),
     path('search/<int:page>/',SearchView.as_view(),name='search'),
     path('search/',SearchView.as_view(),name='search'),
-
-
-
 ]
